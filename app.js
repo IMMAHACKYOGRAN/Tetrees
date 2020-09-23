@@ -15,8 +15,7 @@ function arenaClear () {
     arena.unshift(row)
     ++y
 
-    player.score += rowCount * 10
-    rowCount *= 2
+    player.score += rowCount * 40;
   }
 }
 
@@ -139,7 +138,8 @@ function playerDrop () {
   merge(arena, player);
   playerReset()
   arenaClear()
-  dropCounter = 0;  
+  dropCounter = 0;
+  console.log(player.level)
 }
 
 function playerMove (dir) {
@@ -156,7 +156,10 @@ function playerReset () {
   player.pos.y = 0;
   player.pos.x = (arena[0].length / 2 | 0) - (player.matrix[0].length / 2 | 0);
   if (collide(arena, player)) {
-    arena.forEach(row => row.fill(0))
+    arena.forEach(row => row.fill(0));
+    player.score = 0;
+    updateScore()
+    player.level = 0;
   }
 }
 
@@ -208,13 +211,21 @@ function update (time = 0) {
     playerFall()
   }
 
-  draw()
+  level()
+  updateScore();
+  draw();
+  arenaClear();
   requestAnimationFrame(update);
-  requestAnimationFrame(arenaClear);
-  }
+}
 
 function updateScore () {
-  document.getElementById('score').innerText = player.score
+  document.getElementById('score').innerText = player.score;
+}
+
+function level () {
+  if (player.score > 1000) {
+    player.level = 1;
+  }
 }
 
 const colours = [
@@ -232,9 +243,10 @@ const arena = createMatrix(10, 20);
 const holdArena = createMatrix(5, 5);
 
 const player = {
-  pos: {x: 0, y: 0},
+  pos: { x: 0, y: 0 },
   matrix: null,
-  score: 0
+  score: 0,
+  level: 0
 }
 
 document.addEventListener('keydown', event => {
@@ -252,5 +264,6 @@ document.addEventListener('keydown', event => {
 })
 
 playerReset()
+updateScore()
 update()
 arenaClear()
