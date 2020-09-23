@@ -1,10 +1,65 @@
 <html>
 <head>
-  <title>Tetrees</title>
+    <style>
+        html, body {
+            overflow-y: hidden;
+        }
+
+        body {
+            background: #222;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+            *[hidden] {
+                display: none;
+            }
+
+        canvas {
+            display: block;
+            width: 200px;
+            height: 400px;
+            padding: 3px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        div.holdText {
+            position: absolute;
+            top: 420px;
+            left: 150px;
+            background: white;
+        }
+
+        div.next {
+            position: absolute;
+            top: 400px;
+            left: 3px;
+            width: 100px;
+            height: 100px;
+            background: black;
+        }
+
+        div.hold {
+            position: absolute;
+            top: 400px;
+            left: 97px;
+            width: 100px;
+            height: 100px;
+            background: black;
+        }
+    </style>
+    <title>Tetrees</title>
 </head>
 <body>
-  <div id="score"></div>
-  <canvas id="tetrees" width="240" height="400"></canvas>
-  <script src="app.js"></script>
+    <div class="holdText">Hold</div>
+    <div class="hold"></div>
+    <div class="next"></div>
+    <div id="score"></div>
+    <canvas id="tetrees" width="200" height="400"></canvas>
+    <script src="app.js"></script>
 </body>
 </html>

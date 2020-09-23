@@ -20,13 +20,6 @@ function arenaClear () {
   }
 }
 
-const matrix = [
-  [0, 1, 0, 0],
-  [0, 1, 0, 0],
-  [0, 1, 0, 0],
-  [0, 1, 0, 0],
-];
-
 function collide (arena, player) {
   const m = player.matrix;
   const o = player.pos;
@@ -89,9 +82,9 @@ function createPiece (type) {
     ];
   } else if (type === 'T') {
     return [
-      [0, 0, 0],
       [0, 7, 0],
       [7, 7, 7],
+      [0, 0, 0],
     ];
   }
 }
@@ -101,6 +94,7 @@ function draw () {
   context.fillStyle = '#000';
   context.fillRect(0, 0, canvas.width, canvas.height);
 
+  drawMatrix(holdArena, {x: 10, y: 5})
   drawMatrix(arena, {x: 0, y: 0})
   drawMatrix(player.matrix, player.pos);
 }
@@ -145,7 +139,7 @@ function playerDrop () {
   merge(arena, player);
   playerReset()
   arenaClear()
-  dropCounter = 0;
+  dropCounter = 0;  
 }
 
 function playerMove (dir) {
@@ -217,7 +211,7 @@ function update (time = 0) {
   draw()
   requestAnimationFrame(update);
   requestAnimationFrame(arenaClear);
-}
+  }
 
 function updateScore () {
   document.getElementById('score').innerText = player.score
@@ -227,14 +221,15 @@ const colours = [
   null, // ILJOZST
   '#01C1F5', // light-blue
   '#FC6C0F', // orenge
-  '#0000FF', // blue
+  '#C505DB', // purple
   '#F2F00F', // yellow
   '#E60109', // red
   '#00AF2F', // green
   '#E63B93' // pink
 ]
 
-const arena = createMatrix(12, 20);
+const arena = createMatrix(10, 20);
+const holdArena = createMatrix(5, 5);
 
 const player = {
   pos: {x: 0, y: 0},
@@ -250,7 +245,7 @@ document.addEventListener('keydown', event => {
   } else if (event.keyCode === 40) {
     playerFall();
   } else if (event.keyCode === 38) {
-    playerRotate(1)
+    playerRotate(-1)
   } else if (event.keyCode === 32) {
     playerDrop()
   }
