@@ -1,12 +1,10 @@
 {
-  "name": "Tetrees",
+  "name": "Tetrees 2",
   "version": "1.0",
   "manifest_version": 2,
 
-  "content_scripts": [
-    {
-      "matches": [ "<all_urls>" ],
-      "": ["hi.js"]
-    }
-  ]
+  "browser_action": {
+    "default_popup": "index.html",
+    "default_title": "Tetrees 2"
+  }
 }
